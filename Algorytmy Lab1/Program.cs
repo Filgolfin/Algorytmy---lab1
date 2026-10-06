@@ -1,17 +1,24 @@
-﻿namespace Algorytmy_Lab1
+﻿using System.Net.Http.Headers;
+
+namespace Algorytmy_Lab1
 {
 	internal class Program
 	{
 		static void Main(string[] args)
 		{
-			int liczbaPomiarow = WczytajLiczbePomiarow();
-			List<double> bazaPomiarow = WczytajPomiary(liczbaPomiarow);
-			double minTemperatura = ZnajdzMin(bazaPomiarow);
-			double maxTemperatura = ZnajdzMax(bazaPomiarow);
-			double sredniaTemperatura = ObliczSrednia(bazaPomiarow);
-			int liczbaGoraczek = PoliczGoraczke(bazaPomiarow);
-			string trendTemperatur = TrendTemperatur(bazaPomiarow);
-			int najdluzszaSeriaGoraczek = NajdluzszaSeriaGoraczki(bazaPomiarow);
+			
+
+			RaportTemperatur raport1 = new RaportTemperatur();
+
+			raport1.LiczbaPomiarow = WczytajLiczbePomiarow();
+			raport1.BazaPomiarow = WczytajPomiary(raport1.LiczbaPomiarow);
+			raport1.Min = ZnajdzMin(raport1.BazaPomiarow);
+			raport1.Max = ZnajdzMax(raport1.BazaPomiarow);
+			raport1.Srednia = ObliczSrednia(raport1.BazaPomiarow);
+			raport1.LiczbaGoraczek = PoliczGoraczke(raport1.BazaPomiarow);
+			raport1.Trend = TrendTemperatur(raport1.BazaPomiarow);
+			raport1.NajdluzszaSeriaGoraczki = NajdluzszaSeriaGoraczki(raport1.BazaPomiarow);
+			raport1.WyswietlRaport();
 		}
 		static int WczytajLiczbePomiarow()
 		{
@@ -59,15 +66,15 @@
 			return minimalnaTemperatura;
 		}
 
-		static double ZnajdzMax(List<double> listaTemperatr)
+		static double ZnajdzMax(List<double> listaTemperaur)
 		{
-			double maksymalnaTemperatura = listaTemperatr[0];
+			double maksymalnaTemperatura = listaTemperaur[0];
 
-			for (int i = 1; i < listaTemperatr.Count; i++)
+			for (int i = 1; i < listaTemperaur.Count; i++)
 			{
-				if (maksymalnaTemperatura < listaTemperatr[i])
+				if (maksymalnaTemperatura < listaTemperaur[i])
 				{
-					maksymalnaTemperatura = listaTemperatr[i];
+					maksymalnaTemperatura = listaTemperaur[i];
 				}
 			}
 			return maksymalnaTemperatura;
@@ -125,15 +132,15 @@
 
 			if (trendRosnacy == listaTemperatur.Count - 1)
 			{
-				trend = "Trend jest rosnący";
+				trend = "rosnący";
 			}
 			else if (trendMalejacy == listaTemperatur.Count - 1)
 			{
-				trend = "Trend jest malejący.";
+				trend = "malejący.";
 			}
 			else
 			{
-				trend = "Trend jest stabilny";
+				trend = "stabilny";
 			}
 
 			return trend;
